@@ -194,9 +194,11 @@ Inputs:
 Process:
 
 1. Compute the **ideal** series resistor:
-   $$
-   R_\text{ideal} = \frac{V_s - V_f}{I_\text{target}}
-   $$
+   
+  
+ ```math
+ R_\text{ideal} = \frac{V_s - V_f}{I_\text{target}}
+```
 2. Approximate to the nearest **E24** resistor.
 3. Recompute the **actual current** with the chosen standard value.
 4. Update workbench `g_wb_resistor` and `g_wb_current`.
