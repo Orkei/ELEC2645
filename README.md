@@ -71,7 +71,7 @@ Two modes:
      - Band 2 digit (0–9)  
      - Multiplier index (0–6 → ×1, ×10, ×100, ×1k, ×10k, ×100k, ×1M)  
    - Tool computes:  
-     'R = (10 \times \text{Band1} + \text{Band2}) \times 10^{\text{multiplier}}'
+     $R = (10 \times \text{Band1} + \text{Band2}) \times 10^{\text{multiplier}}$
    - Assumes **±5% (Gold)** tolerance.
    - Updates `g_wb_resistor` to this value.
    - **History entry** includes:
@@ -85,7 +85,7 @@ Two modes:
    - The E24 value is then converted back into a 4-band code:
      - Band 1 digit
      - Band 2 digit
-     - Multiplier (10ⁿ)  
+     - Multiplier ($10^n$)  
      - Fixed tolerance band = **Gold (5%)**
    - Example history result:
      - Inputs: `Req=5.3kOhms,E24=5.6kOhms,Bands=Green-Blue-Red-Gold`
@@ -123,11 +123,13 @@ Example output:
 **Filename:** `funcs.c` → `menu_item_3`
 
 - Inputs:
-  - `Vin`
-  - `R1` (top resistor) – chosen from E24 via `get_standard_resistor_input`
-  - `R2` (bottom resistor) – also E24
+  - $V_\text{in}$
+  - $R_1$ (top resistor) – chosen from E24 via `get_standard_resistor_input`
+  - $R_2$ (bottom resistor) – also E24
 - Output:
-  'V_{out} = V_{in} \cdot \frac{R_2}{R_1 + R_2}'
+```math
+V_{\text{out}} = V_{\text{in}} \cdot \frac{R_2}{R_1 + R_2}
+```
 
 - History records both resistor values and the resulting output voltage.
 
@@ -150,19 +152,19 @@ Features:
 
 - Uses a **numerical Euler method** with 1000 simulation steps (internally sub-stepped) to solve the differential equations.
 - Automatically suggests a simulation time:
-  - RC: `5·R·C`
-  - RL: `5·L/R`
+  - RC: $5 \cdot R \cdot C$
+  - RL: $5 \cdot \dfrac{L}{R}$
   - LC: about 3 periods  
-  - RLC: depends on damping (`α` vs `ω₀`) to capture either oscillation or decay
+  - RLC: depends on damping ($\alpha$ vs $\omega_0$) to capture either oscillation or decay
 - User can override the suggested total time.
 
 Outputs:
 
 - ASCII **vertical strip charts**:
-  - Loop current `I(t)`  
-  - Capacitor voltage `Vc(t)` (when applicable)  
-  - Energy in capacitor `Ec = 1/2 C·Vc²`  
-  - Energy in inductor `El = 1/2 L·I²`
+  - Loop current $I(t)$  
+  - Capacitor voltage $V_C(t)$ (when applicable)  
+  - Energy in capacitor ($E_C = \tfrac{1}{2} C \cdot V_C^2$)  
+  - Energy in inductor ($E_L = \tfrac{1}{2} L \cdot I^2$)
 - Each chart prints:
   - Time (ms)
   - A bar with an `O` marker showing relative magnitude
@@ -185,16 +187,16 @@ History:
 
 Inputs:
 
-- `Vs` – supply voltage  
-- `Vf` – LED forward voltage  
-- `I_target` – desired LED current
+- $V_s$ – supply voltage  
+- $V_f$ – LED forward voltage  
+- $I_\text{target}$ – desired LED current
 
 Process:
 
 1. Compute the **ideal** series resistor:
-   \[
-   R_{ideal} = \frac{V_s - V_f}{I_{target}}
-   \]
+   $$
+   R_\text{ideal} = \frac{V_s - V_f}{I_\text{target}}
+   $$
 2. Approximate to the nearest **E24** resistor.
 3. Recompute the **actual current** with the chosen standard value.
 4. Update workbench `g_wb_resistor` and `g_wb_current`.
@@ -216,23 +218,25 @@ Example result string:
 **Filename:** `funcs.c` → `menu_item_6`
 
 Modes:
-### Non-inverting Amplifier
 
-'G = 1 + R2/R1'
+#### Non-inverting Amplifier
 
-### Inverting Amplifier
+$$
+G = 1 + \frac{R_2}{R_1}
+$$
 
-'[G = -R2/R1'
+#### Inverting Amplifier
 
-
-
+$$
+G = -\frac{R_2}{R_1}
+$$
 
 Given a target gain magnitude:
 
-- The tool scans through a set of E24-based `R1` candidates (1 kΩ to 100 kΩ),
+- The tool scans through a set of E24-based $R_1$ candidates (1 kΩ to 100 kΩ),
   and for each:
-  - Computes the ideal `R2`
-  - Approximates `R2` to the nearest E24 value
+  - Computes the ideal $R_2$
+  - Approximates $R_2$ to the nearest E24 value
   - Calculates the **actual gain** and percentage error
 - It prints a small table of “good” combinations and selects the **best** pair
   with minimal gain error.
@@ -245,7 +249,7 @@ Example final summary:
 
 Workbench:
 
-- `g_wb_resistor` is set to the chosen `R1` value for future tools.
+- `g_wb_resistor` is set to the chosen $R_1$ value for future tools.
 
 History:
 
