@@ -71,9 +71,7 @@ Two modes:
      - Band 2 digit (0–9)  
      - Multiplier index (0–6 → ×1, ×10, ×100, ×1k, ×10k, ×100k, ×1M)  
    - Tool computes:  
-     \[
-     R = (10 \times \text{Band1} + \text{Band2}) \times 10^{\text{multiplier}}
-     \]
+     'R = (10 \times \text{Band1} + \text{Band2}) \times 10^{\text{multiplier}}'
    - Assumes **±5% (Gold)** tolerance.
    - Updates `g_wb_resistor` to this value.
    - **History entry** includes:
@@ -129,9 +127,8 @@ Example output:
   - `R1` (top resistor) – chosen from E24 via `get_standard_resistor_input`
   - `R2` (bottom resistor) – also E24
 - Output:
-  \[
-  V_{out} = V_{in} \cdot \frac{R_2}{R_1 + R_2}
-  \]
+  'V_{out} = V_{in} \cdot \frac{R_2}{R_1 + R_2}'
+
 - History records both resistor values and the resulting output voltage.
 
 This supports quick design of bias networks or level shifters based on standard components.
@@ -164,8 +161,8 @@ Outputs:
 - ASCII **vertical strip charts**:
   - Loop current `I(t)`  
   - Capacitor voltage `Vc(t)` (when applicable)  
-  - Energy in capacitor `Ec = ½ C·Vc²`  
-  - Energy in inductor `El = ½ L·I²`
+  - Energy in capacitor `Ec = 1/2 C·Vc²`  
+  - Energy in inductor `El = 1/2 L·I²`
 - Each chart prints:
   - Time (ms)
   - A bar with an `O` marker showing relative magnitude
@@ -221,11 +218,11 @@ Example result string:
 Modes:
 ### Non-inverting Amplifier
 
-![G = 1 + R2/R1](https://render.githubusercontent.com/render/math?math=G%20%3D%201%20%2B%20%5Cfrac%7BR_2%7D%7BR_1%7D)
+'G = 1 + R2/R1'
 
 ### Inverting Amplifier
 
-![G = -R2/R1](https://render.githubusercontent.com/render/math?math=G%20%3D%20-%5Cfrac%7BR_2%7D%7BR_1%7D)
+'[G = -R2/R1'
 
 
 
