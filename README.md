@@ -219,15 +219,16 @@ Example result string:
 **Filename:** `funcs.c` → `menu_item_6`
 
 Modes:
+### Non-inverting Amplifier
 
-1. **Non-inverting amplifier:**  
-   \[
-   G = 1 + \frac{R_2}{R_1}
-   \]
-2. **Inverting amplifier:**  
-   \[
-   G = \frac{R_2}{R_1}
-   \]
+![G = 1 + R2/R1](https://render.githubusercontent.com/render/math?math=G%20%3D%201%20%2B%20%5Cfrac%7BR_2%7D%7BR_1%7D)
+
+### Inverting Amplifier
+
+![G = -R2/R1](https://render.githubusercontent.com/render/math?math=G%20%3D%20-%5Cfrac%7BR_2%7D%7BR_1%7D)
+
+
+
 
 Given a target gain magnitude:
 
